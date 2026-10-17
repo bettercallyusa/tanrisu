@@ -1,0 +1,354 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#090610">
+<title>Sana Özel Bir Hikâye</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  min-height:100vh;
+  background:#090610;
+  color:#fff;
+  font-family:Georgia,"Times New Roman",serif;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:22px;
+  overflow-x:hidden;
+}
+
+.stars{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background-image:
+    radial-gradient(#fff 1px,transparent 1px),
+    radial-gradient(#a78bfa 1px,transparent 1px);
+  background-size:49px 49px,83px 83px;
+  background-position:0 0,25px 35px;
+  opacity:.35;
+}
+
+main{
+  position:relative;
+  width:100%;
+  max-width:430px;
+}
+
+header{text-align:center;margin-bottom:25px}
+header p{
+  color:#c8a8ff;
+  font:11px Arial,sans-serif;
+  letter-spacing:4px;
+}
+h1{font-size:25px;font-weight:normal}
+
+.panel{
+  position:relative;
+  overflow:hidden;
+  min-height:350px;
+  border:1px solid #694d83;
+  background:linear-gradient(145deg,#1a1025,#0c0912);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:27px 19px;
+  text-align:center;
+  box-shadow:0 0 35px #4b236622;
+}
+
+.scene{
+  display:none;
+  width:100%;
+}
+.scene.active{display:block;animation:fade .8s ease both}
+
+.story{
+  font-size:25px;
+  line-height:1.65;
+  min-height:150px;
+}
+.small{
+  color:#b9a6c9;
+  font-size:13px;
+  line-height:1.7;
+}
+.cursor{
+  color:#d8b7ff;
+  animation:blink .8s infinite;
+}
+
+button{
+  display:none;
+  width:100%;
+  margin-top:22px;
+  padding:15px 13px;
+  border:1px solid #b78be0;
+  border-radius:5px;
+  background:#432456;
+  color:white;
+  font-size:15px;
+  font-family:inherit;
+  cursor:pointer;
+  animation:fade .7s ease both;
+}
+button:active{transform:scale(.98)}
+button.show{display:block}
+
+#photo{
+  display:none;
+  width:100%;
+  max-height:390px;
+  object-fit:contain;
+  margin:0 auto 20px;
+  border:2px solid #bfa0d9;
+  box-shadow:0 0 28px #c17bff30;
+}
+#photo.visible{display:block;animation:fade 1.2s ease both}
+
+.placeholder{
+  display:none;
+  min-height:210px;
+  margin-bottom:18px;
+  border:1px dashed #9671b5;
+  background:#160f20;
+  color:#d9c3eb;
+  padding:35px 12px;
+  line-height:1.8;
+}
+
+#curtains{
+  display:none;
+  position:absolute;
+  inset:0;
+  z-index:3;
+  overflow:hidden;
+  pointer-events:none;
+}
+#curtains.open{display:block}
+
+.curtain{
+  position:absolute;
+  top:0;
+  bottom:0;
+  width:51%;
+  background:
+    repeating-linear-gradient(90deg,
+      #35091f 0px,#7e2047 13px,
+      #4b0e2e 25px,#8d2b50 36px);
+  box-shadow:inset 0 0 25px #16020c;
+}
+.curtain.left{left:0}
+.curtain.right{right:0}
+
+#curtains.open .left{animation:leftOpen 1.7s ease-in-out forwards}
+#curtains.open .right{animation:rightOpen 1.7s ease-in-out forwards}
+
+.quote{
+  font-size:23px;
+  line-height:1.6;
+  color:#f5d9ff;
+}
+footer{
+  text-align:center;
+  color:#887694;
+  font:10px Arial,sans-serif;
+  margin-top:22px;
+}
+
+@keyframes fade{
+  from{opacity:0;transform:translateY(12px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes blink{50%{opacity:0}}
+@keyframes leftOpen{
+  to{transform:translateX(-103%)}
+}
+@keyframes rightOpen{
+  to{transform:translateX(103%)}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms!important;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="stars"></div>
+
+<main>
+<header>
+  <p>✦ YALNIZCA SANA ✦</p>
+  <h1>Bir Hikâyenin Başlangıcı</h1>
+</header>
+
+<section class="panel">
+
+  <div class="scene active" id="scene1">
+    <p class="small">BÖLÜM I</p>
+    <div class="story">
+      <span id="typed1"></span><span class="cursor" id="cursor1">▍</span>
+    </div>
+  </div>
+
+  <div class="scene" id="scene2">
+    <p class="small">BÖLÜM II</p>
+
+    <img id="photo" src="foto.jpg" alt="Sürpriz fotoğraf">
+
+    <div class="placeholder" id="placeholder">
+      ✦ FOTOĞRAFIN BURADA GÖRÜNECEK ✦<br>
+      GitHub'a fotoğrafını foto.jpg adıyla yükle.
+    </div>
+
+    <p class="quote">“Ben bu güzelliğe sadece taparım.”</p>
+    <p class="small">Ve o an, bütün yıldızlar sustu.</p>
+  </div>
+
+  <div class="scene" id="scene3">
+    <p class="small">BÖLÜM III</p>
+    <div class="story">
+      <span id="typed3"></span><span class="cursor" id="cursor3">▍</span>
+    </div>
+    <p class="small" id="ending" style="display:none">
+      Belki de en güzel hikâyeler birlikte yazılanlardır.
+    </p>
+  </div>
+
+  <div id="curtains">
+    <div class="curtain left"></div>
+    <div class="curtain right"></div>
+  </div>
+</section>
+
+<button id="next1" class="show" onclick="showSecond()" style="display:none">
+  Devam et →
+</button>
+
+<button id="back" onclick="showThird()">
+  Başa git
+</button>
+
+<footer>Her güzel hikâyenin bir başlangıcı vardır.</footer>
+</main>
+
+<script>
+const firstText =
+"Tanrı dayanamadı ve yarattığı bu eşsiz güzelliği yanına çağırdı ve dedi ki…";
+
+const thirdText =
+"Bu hikâyenin başını öğrenmek için benimle birlikte yazar mısın?";
+
+let typingTimer;
+let sceneNumber = 1;
+
+function typeText(text, target, cursor, done){
+  clearInterval(typingTimer);
+  const output = document.getElementById(target);
+  const caret = document.getElementById(cursor);
+  output.textContent = "";
+  caret.style.display = "inline";
+
+  let i = 0;
+  typingTimer = setInterval(() => {
+    output.textContent += text.charAt(i);
+    i++;
+
+    if(i >= text.length){
+      clearInterval(typingTimer);
+      caret.style.display = "none";
+      if(done) done();
+    }
+  }, 65);
+}
+
+function showScene(id){
+  document.querySelectorAll(".scene").forEach(scene=>{
+    scene.classList.remove("active");
+  });
+  document.getElementById(id).classList.add("active");
+}
+
+function showSecond(){
+  if(sceneNumber !== 1) return;
+  sceneNumber = 2;
+
+  document.getElementById("next1").style.display = "none";
+  showScene("scene2");
+
+  const photo = document.getElementById("photo");
+  const placeholder = document.getElementById("placeholder");
+  const curtains = document.getElementById("curtains");
+
+  curtains.classList.remove("open");
+  photo.classList.remove("visible");
+  photo.style.display = "none";
+  placeholder.style.display = "none";
+
+  photo.onload = () => {
+    photo.style.display = "block";
+    photo.classList.add("visible");
+    reveal();
+  };
+
+  photo.onerror = () => {
+    photo.style.display = "none";
+    placeholder.style.display = "block";
+    reveal();
+  };
+
+  function reveal(){
+    curtains.classList.remove("open");
+    void curtains.offsetWidth;
+    curtains.classList.add("open");
+
+    setTimeout(()=>{
+      curtains.style.display = "none";
+      document.getElementById("back").classList.add("show");
+    },1800);
+  }
+
+  curtains.style.display = "block";
+  curtains.classList.add("open");
+  document.getElementById("back").classList.remove("show");
+
+  setTimeout(()=>{
+    if(!photo.complete || photo.naturalWidth === 0){
+      photo.onerror();
+    }else{
+      photo.onload();
+    }
+  },100);
+}
+
+function showThird(){
+  if(sceneNumber !== 2) return;
+  sceneNumber = 3;
+
+  clearInterval(typingTimer);
+  document.getElementById("back").classList.remove("show");
+  document.getElementById("curtains").style.display = "none";
+  showScene("scene3");
+
+  typeText(thirdText,"typed3","cursor3",()=>{
+    document.getElementById("ending").style.display = "block";
+  });
+}
+
+typeText(firstText,"typed1","cursor1",()=>{
+  document.getElementById("next1").classList.add("show");
+  document.getElementById("next1").style.display = "block";
+});
+</script>
+</body>
+      </html>
+      
